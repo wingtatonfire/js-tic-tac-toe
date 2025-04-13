@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background-color: aquamarine;
+}
+.gameboard {
+    background-color: aliceblue;
+    height: 450px;
+    width: 450px;
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
+}
+
+.gameboard > div {
+    border: 1px gainsboro solid;
+    border-radius: 8px;
+    margin: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameboard img {
+    max-width: 70%;
+    max-height: 70%;
+    object-fit: contain;   
+  }
+
+
