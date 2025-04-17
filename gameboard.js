@@ -1,47 +1,46 @@
 // store the gameboard as a array
 const gameboard = (function createGameboard() {
     const winCon = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-    let gameboard = [];
-    for (let i = 0; i < 9; i++) {
-        gameboard.push(" ");
+    const board = [];
+    const init = function () {
+        for (let i = 0; i < 9; i++) {
+            board.push(" ");
+    }
+
     }
     const putMarkX = function (index) {
-        gameboard[index] = "X";
+        board[index] = "X";
         checkWin("X");
     }
     const putMarkO = function (index) {
-        gameboard[index] = "O";
+        board[index] = "O";
         checkWin("O");
     }
     const checkWin = function (player) {
         winCon.forEach((item) => {
-            if (gameboard[item[0]] === player && gameboard[item[1]] === player && gameboard[item[2]] === player) {
+            if (board[item[0]] === player && board[item[1]] === player && board[item[2]] === player) {
                 alert(player + " is the winner");
-                
+                resetGame()
             }
         })
     }
-    return { gameboard, putMarkX, putMarkO }
+    const resetGame = function () {
+        board.length = 0;
+        init();
+        display.clear();
+    }
+
+    init()
+    return {putMarkX, putMarkO, resetGame }
 })();
 
 const display = (function display() {
     const circleImg = "asset/circle-svgrepo-com.svg";
     const crossImg = "asset/cross-svgrepo-com.svg";
+    const reButton = document.querySelector(".reButton")
+
     let player = "O";
-    // const render = function () {
-    //     for (let i = 0; i < 9; i++) {
-    //         if (gameboard.gameboard[i] === "X" || gameboard.gameboard[i] === "O") {
-    //             let position = document.getElementById(i);
-    //             let image = document.createElement("img");
-    //             let marker = (gameboard.gameboard[i] === "X") ? crossImg : circleImg;
-    //             image.setAttribute("src", marker);
-    //             if (position.children.length > 0) {
-    //                 position.removeChild(position.children[0]);
-    //             };
-    //             position.appendChild(image);
-    //         }
-    //     }
-    // }
+
     const init = function () {
         for (let i = 0; i < 9; i++) {
             document.getElementById(i).addEventListener("click", function () {
@@ -61,10 +60,19 @@ const display = (function display() {
                 }
             })
         }
+        reButton.addEventListener("click", () => {
+            gameboard.resetGame()
+        })
     }
-    const clear = function() {}
+    const clear = function () {
+        for (let i = 0; i < 9; i++) {
+            let cell = document.getElementById(i);
+            if (cell.children.length > 0) {
+                cell.removeChild(cell.firstChild)
+            }
+        }
+        player = "O";
+    }
     init()
-
-    return {};
+    return {clear};
 })()
-
