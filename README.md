@@ -1,1 +1,1 @@
-Project for java script courese 
+Project for java script course
